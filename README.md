@@ -47,28 +47,55 @@ The training data consists of a few hundred videos categorized into one of the f
 ## Model build
 *Here we make the model using different functionalities that Keras provides. We will experiment with different models with Conv3D and MaxPooling3D. We also want to experiment with TimeDistributed while building a Conv2D + RNN model and transfer learning. The last layer will be SoftMax. We will design the network in such a way that the model can give good accuracy on the least number of parameters so that it can fit in the memory of the webcam*
 
-` Base Model:` 
+`Base Model:` 
 We have successfully built our base model to test the model setups and generator function. We ran only for two epochs and the model is overfitted as expected. The Base model we have built is with Con3D architecture.
 
+![](/images/base_model.PNG)
 
+`Model 1:` 
+As our base model is getting successfully overfitted as expected we experiment with the model parameter to come up with a wiser one. We experimented with increasing the Image Resolution, batch size, and several other parameters.
 
+![](/images/model_1.PNG)
 
+We got 'ResourceExhaustedError' as the hardware we have is not efficient enough to handle the batch size of 64 with an image resolution of 128 x 128
 
+`Model 2:`
+After many experiments and the trade-off between the image resolution and the batch size, we got to the conclusion to choose the image Resolution as 64 x 64 and the batch size as 8. 
 
+![](/images/model_2.PNG)
 
+So, by choosing Image Resolution and Batch size as 64 x 64 & 8 we can build the model, but the model is overfitted as we ran only for 2 epochs.
 
+`Model 3 – Final Model:`
+We also tweaked the architecture of our previous model a little bit by adding one more Conv3D layer, MaxPooling3D layer, and dense layer to get better accuracy. As increased in MaxPooling3D layer also results in a lesser number of training parameters which is very crucial in our case. Also, we train the model for 25 epochs.
 
+![](/images/model_3_1.PNG)
 
+**As a result, the above model has achieved 88% validation accuracy and 90% training accuracy for 25 epochs. We trained the model for further 25 epochs to see if the performance increases.**
 
+![](/images/model_3_2.PNG)
 
+![](/images/accuracy_model.PNG)
 
+##### The model is our final model with higher accuracy in the validation dataset however we did several other experiments as well and those are as follows
+  - CNN2D-GRU
+  - Transfer learning – Inception V3 combined with GRU
 
+`CNN2D-GRU:`
+We build GRU Model with Time distributed Conv2D and the other layers below are the result.
 
+![](/images/CNN2D-GRU.PNG)
 
+`Transfer learning InceptionV3-GRU:`
+We build GRU Model in combination with the InceptionV3 (Transfer learning). Inception model followed by the batch norm, MaxPoll2D, flatten and dropout with 50%. We also added dropout with 50% after GRU (32) and dense (64) as well.
 
+![](/images/transfer_learning.PNG)
 
+The model is still overfitting! Maybe we need to add more layers or try with a little tweak of the architecture however since we are doing transfer learning here, the Model might end up getting more parameters which we don't want as need to implement this model in webcam we need to have less number of parameters in our model but we already have 22,013,285 parameters in this inception_gru model.
 
+## Conclusion
 
+As per the business requirement, we need to build the model with higher accuracy and a lower number of parameters possible to detect the 5 gestures correctly so that we can implement the same in the webcam mounted on top of the TV to take control of the frequently usable action using simple gestures.
 
-
+**Model-3** which is based on Conv3D architecture has a lesser number of parameters and it has both train and test accuracy as 94% can satisfy the business requirements.
 
