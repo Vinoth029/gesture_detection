@@ -91,7 +91,7 @@ We build GRU Model in combination with the InceptionV3 (Transfer learning). Ince
 
 ![](/images/transfer_learning.PNG)
 
-The model is still overfitting! Maybe we need to add more layers or try with a little tweak of the architecture however since we are doing transfer learning here, the Model might end up getting more parameters which we don't want as need to implement this model in webcam we need to have less number of parameters in our model but we already have 22,013,285 parameters in this inception_gru model.
+The model is still overfitting! Maybe we need to add more layers or try with a little tweak of the architecture however since we are doing transfer learning here, the Model might end up getting more parameters which we don't want as need to implement this model in webcam we need to have less number of parameters in our model but we already have 22,013,285 parameters in this inception_gru model
 
 ## Conclusion
 
